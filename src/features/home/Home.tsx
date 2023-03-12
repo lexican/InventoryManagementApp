@@ -1,5 +1,7 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import InventoryList from '../../components/inventory-list/InventoryList';
+import {RootStackParamList} from '../../navigation/navigation';
 import {
   AddInventoryBtn,
   AddInventoryBtnText,
@@ -7,11 +9,19 @@ import {
   HomeContainer,
 } from './Home.styles';
 
-const Home = () => {
+type Prop = NativeStackScreenProps<RootStackParamList, 'CreateInventory'>;
+
+const Home = ({navigation}: Prop) => {
+  const navigateToCreateInventory = () => {
+    navigation.navigate('CreateInventory', {inventoryItem: {}});
+  };
+
   return (
     <HomeContainer>
       <FlexRow>
-        <AddInventoryBtn activeOpacity={0.9} onPress={() => {}}>
+        <AddInventoryBtn
+          activeOpacity={0.9}
+          onPress={navigateToCreateInventory}>
           <AddInventoryBtnText>Create</AddInventoryBtnText>
         </AddInventoryBtn>
       </FlexRow>

@@ -5,11 +5,13 @@ import Splash from '../features/splash/Splash';
 import Login from '../features/login/Login';
 import Home from '../features/home/Home';
 import {useAuthStateContext} from '../contexts/auth-context/AuthContext';
+import CreateInventory from '../features/create-inventory/CreateInventory';
 
 export type RootStackParamList = {
   Splash: undefined;
   Login: undefined;
   Home: undefined;
+  CreateInventory: {inventoryItem?: any};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +31,11 @@ const Navigation = () => {
         {isLoggedIn ? (
           <Stack.Group>
             <Stack.Screen name="Home" component={Home} options={{title: ''}} />
+            <Stack.Screen
+              name="CreateInventory"
+              component={CreateInventory}
+              options={{title: ''}}
+            />
           </Stack.Group>
         ) : (
           <Stack.Group>
