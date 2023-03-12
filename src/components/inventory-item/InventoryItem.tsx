@@ -26,6 +26,7 @@ const InventoryItem: FC<IProps> = ({inventory}) => {
       <InventoryPrice>#{inventory.price}</InventoryPrice>
       <InventoryTotalStock>{inventory.totalStock}</InventoryTotalStock>
       <EditInventoryBtn
+        testID="edit"
         activeOpacity={0.9}
         onPress={() => {
           navigate('CreateInventory', {
