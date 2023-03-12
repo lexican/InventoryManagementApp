@@ -24,3 +24,8 @@ export const LoginBtnText = styled.Text`
   font-size: 24px;
   font-weight: 700;
 `;
+
+export const LoginErrorText = styled.Text`
+  color: red;
+  margin-bottom: 20px;
+`;

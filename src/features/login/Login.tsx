@@ -1,17 +1,33 @@
 import React, {useState} from 'react';
 import CustomTextInput from '../../components/custom-text-input/CustomTextInput';
+import {validateEmail} from '../../utils/utils';
 import {
   LoginBtn,
   LoginBtnText,
   LoginContainer,
+  LoginErrorText,
 } from './Login.styles';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
 
   const [password, setPassword] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    setEmailError('');
+    setPasswordError('');
+    if (email === '') {
+      setEmailError('Email is Required');
+    } else if (!validateEmail(email)) {
+      setEmailError('Invalid Email');
+    } else if (password === '') {
+      setPasswordError('Password is Required');
+    } else {
+      //Login
+    }
+  };
 
   return (
     <LoginContainer>
@@ -22,6 +38,7 @@ const Login = () => {
           setEmail(email);
         }}
       />
+      {emailError && <LoginErrorText>{emailError}</LoginErrorText>}
       <CustomTextInput
         placeholder="Password"
         secureTextEntry={true}
@@ -30,6 +47,7 @@ const Login = () => {
           setPassword(password);
         }}
       />
+      {passwordError && <LoginErrorText>{passwordError}</LoginErrorText>}
       <LoginBtn activeOpacity={0.9} onPress={handleLogin}>
         <LoginBtnText>Login</LoginBtnText>
       </LoginBtn>
