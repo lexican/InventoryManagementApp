@@ -1,5 +1,6 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import React, {FC, useState} from 'react';
+import ConfirmModal from '../../components/confirm-modal/ConfirmModal';
 import CustomTextInput from '../../components/custom-text-input/CustomTextInput';
 import {useInventoryStateContext} from '../../contexts/inventory-context/InventoryContext';
 import {showToast} from '../../utils/utils';
@@ -151,7 +152,6 @@ const CreateInventory: FC<IProp> = ({navigation}) => {
             {editInventoryItem?.name == null ? 'Create' : 'Edit'} Inventory
           </CreateInventoryText>
         </HeaderRow>
-
         <CustomTextInput
           placeholder="Inventory Name"
           value={inventoryName}
@@ -219,6 +219,21 @@ const CreateInventory: FC<IProp> = ({navigation}) => {
             }}>
             <DeleteInventoryBtnText>Delete</DeleteInventoryBtnText>
           </DeleteInventoryBtn>
+        )}
+        {editInventoryItem?.name != null && (
+          <ConfirmModal
+            isModalVisible={isDeleteInventoryModalVisible}
+            title="Are you sure you want to delete inventory?"
+            onReject={() => {
+              setDeleteInventoryModalVisible(false);
+            }}
+            onConfirm={() => {
+              deleteInventory(editInventoryItem?.name);
+              showToast('Inventory Deleted');
+              setDeleteInventoryModalVisible(false);
+              navigation.goBack();
+            }}
+          />
         )}
       </CreateInventoryScrollView>
     </CreateInventorySafeAreaView>
