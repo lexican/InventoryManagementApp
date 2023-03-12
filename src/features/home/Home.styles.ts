@@ -27,3 +27,27 @@ export const AddInventoryBtnText = styled.Text`
   font-size: 18px;
   font-weight: 700;
 `;
+
+export const LogoutButtonContainer = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+export const LogoutBtn = styled.TouchableOpacity`
+  background: #ffffff;
+  width: 80%;
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin-top: 20px;
+  border-width: 1px;
+  border-color: #aa77ff;
+`;
+
+export const LogoutBtnText = styled.Text`
+  color: #aa77ff;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+`;
