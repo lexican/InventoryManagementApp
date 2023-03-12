@@ -1,5 +1,5 @@
 import React from 'react';
-import InventoryItem from '../../components/inventory-item/InventoryItem';
+import InventoryList from '../../components/inventory-list/InventoryList';
 import {
   AddInventoryBtn,
   AddInventoryBtnText,
@@ -15,9 +15,7 @@ const Home = () => {
           <AddInventoryBtnText>Create</AddInventoryBtnText>
         </AddInventoryBtn>
       </FlexRow>
-      <InventoryItem
-        inventory={{name: 'name', description: '', price: 200, totalStock: 2}}
-      />
+      <InventoryList />
     </HomeContainer>
   );
 };
