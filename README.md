@@ -20,7 +20,7 @@ InventoryManagementApp is a mobile app that allows users to list, add, edit, and
 
 ### Modal
 
-<img src="screenshots/confirm-modal.png" height="500em"
+<img src="screenshots/confirm-modal.png" height="500em"/>
 
 ## Test locally
 
