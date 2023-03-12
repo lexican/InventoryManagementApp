@@ -8,7 +8,7 @@ type Prop = NativeStackScreenProps<RootStackParamList, 'Login'>;
 export default function Splash({navigation}: Prop): JSX.Element {
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.replace('Login');
     }, 3000);
     return () => clearTimeout(timeout);
   }, []);

@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IInventory} from '../../types/types';
+import {AsyncStorageInventoriesKey} from '../../utils/constants';
 
 export const InventoryStateContext = createContext<IStateContext>(
   undefined as never,
@@ -33,7 +34,9 @@ export const InventoryContextProvider: FC<IProp> = ({children}) => {
   }, []);
 
   const getInventories = async () => {
-    const inventoryItems = await AsyncStorage.getItem('items');
+    const inventoryItems = await AsyncStorage.getItem(
+      AsyncStorageInventoriesKey,
+    );
     if (inventoryItems != null) {
       setInventories(JSON.parse(inventoryItems));
     }
@@ -41,10 +44,7 @@ export const InventoryContextProvider: FC<IProp> = ({children}) => {
 
   const addInventory = async (inventory: IInventory) => {
     setInventories([...inventories, inventory]);
-    await AsyncStorage.setItem(
-      'items',
-      JSON.stringify([...inventories, inventory]),
-    );
+    await updateAsyncStorageData([...inventories, inventory]);
   };
 
   const updateInventory = async (inventory: IInventory, name: string) => {
@@ -56,8 +56,8 @@ export const InventoryContextProvider: FC<IProp> = ({children}) => {
 
     if (inventoryIndex !== -1) {
       tempInventories[inventoryIndex] = {...inventory};
-      await AsyncStorage.setItem('items', JSON.stringify(tempInventories));
       setInventories([...tempInventories]);
+      await updateAsyncStorageData(tempInventories);
     }
   };
 
@@ -65,13 +65,20 @@ export const InventoryContextProvider: FC<IProp> = ({children}) => {
     const tempInventories = inventories.filter(
       inventory => inventory.name.toLowerCase() !== name.toLowerCase(),
     );
-    await AsyncStorage.setItem('items', JSON.stringify(tempInventories));
     setInventories([...tempInventories]);
+    await updateAsyncStorageData(tempInventories);
   };
 
   const clearInventories = async () => {
-    await AsyncStorage.removeItem('items');
+    await AsyncStorage.removeItem(AsyncStorageInventoriesKey);
     setInventories([]);
+  };
+
+  const updateAsyncStorageData = async (inventories: IInventory[]) => {
+    await AsyncStorage.setItem(
+      AsyncStorageInventoriesKey,
+      JSON.stringify(inventories),
+    );
   };
 
   const value = useMemo(

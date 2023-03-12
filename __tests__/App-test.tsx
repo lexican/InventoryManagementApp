@@ -19,6 +19,7 @@ import CreateInventory from '../src/features/create-inventory/CreateInventory';
 import Home from '../src/features/home/Home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import InventoryItem from '../src/components/inventory-item/InventoryItem';
+import {AsyncStorageInventoriesKey} from '../src/utils/constants';
 
 jest.mock('react-native-toast-message', () => ({
   show: jest.fn(),
@@ -168,19 +169,25 @@ describe('Async storage CRUD test', () => {
   });
 
   it('can update item in async storage', async () => {
-    await AsyncStorage.setItem('items', JSON.stringify(mockData));
+    await AsyncStorage.setItem(
+      AsyncStorageInventoriesKey,
+      JSON.stringify(mockData),
+    );
 
-    let items = await AsyncStorage.getItem('items');
+    let items = await AsyncStorage.getItem(AsyncStorageInventoriesKey);
 
     if (items != null) {
       let tempList = JSON.parse(items);
       let tempItem = {...tempList[0]};
       tempItem.name = 'Stock';
       tempList[0] = tempItem;
-      await AsyncStorage.setItem('items', JSON.stringify(tempList));
+      await AsyncStorage.setItem(
+        AsyncStorageInventoriesKey,
+        JSON.stringify(tempList),
+      );
     }
 
-    let newItems = await AsyncStorage.getItem('items');
+    let newItems = await AsyncStorage.getItem(AsyncStorageInventoriesKey);
 
     if (newItems != null) {
       let items = JSON.parse(newItems);
