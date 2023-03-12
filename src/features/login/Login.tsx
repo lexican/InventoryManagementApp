@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import CustomTextInput from '../../components/custom-text-input/CustomTextInput';
+import {useAuthStateContext} from '../../contexts/auth-context/AuthContext';
 import {validateEmail} from '../../utils/utils';
 import {
   LoginBtn,
@@ -15,6 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
 
+  const {onLogin} = useAuthStateContext();
+
   const handleLogin = () => {
     setEmailError('');
     setPasswordError('');
@@ -25,7 +28,7 @@ const Login = () => {
     } else if (password === '') {
       setPasswordError('Password is Required');
     } else {
-      //Login
+      onLogin(email);
     }
   };
 
