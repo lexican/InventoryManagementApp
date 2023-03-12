@@ -6,7 +6,7 @@ type IProps = {
   secureTextEntry?: boolean;
   placeholder?: string;
   value?: string;
-  keyboard: KeyboardTypeOptions | undefined;
+  keyboard?: KeyboardTypeOptions | undefined;
   onChangeText?: (text: string) => void;
 };
 
